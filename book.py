@@ -95,6 +95,23 @@ class Book:
             print("         {0} {1} id={2}".format(self.ordered_orders[i].side_order(), self.ordered_orders[i].__str__(),self.ordered_orders[i].identity))
 
 
+     def book_display(self):
+        
+        print("Affichage de notre book en format dataframe : ")
+        
+        ordres = []
+        for i in range(0, len(self.ordered_orders)):
+            if(self.ordered_orders[i].buy == 0.0):
+                self.ordered_orders[i].buy = "SELL"
+            else :
+                self.ordered_orders[i].buy = "BUY"
+            ordres.append([self.ordered_orders[i].quantity, self.ordered_orders[i].price, self.ordered_orders[i].buy, self.ordered_orders[i].identity])
+        ordres2= np.array(ordres)
+        
+        our_book_buy = pd.DataFrame(ordres2, columns = ['Quantite','Prix','Type','id'])
+        print(our_book_buy)  
+
+
     def insert_buy(self,quantity,price):
 
         self.count_add() # id ++
